@@ -194,7 +194,6 @@ const ConsultationForm = () => {
         },
         body: JSON.stringify(requestBody),
       });
-
       const data = await response.json();
       console.log("Response:", data);
 
@@ -258,7 +257,7 @@ const ConsultationForm = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen m-8 bg-white px-6 py-4">
+      <div className=" max-h-screen m-8 bg-white px-6 py-4">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="mb-8">

@@ -201,7 +201,7 @@ const AppointmentsPage = () => {
     try {
       setActionLoading(true);
       const response = await fetch(`http://localhost:5000/api/appointments/cancel/${appointmentId}`, {
-        method: 'DELETE',
+        method: 'POST',
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await response.json();
@@ -225,7 +225,7 @@ const AppointmentsPage = () => {
     try {
       setActionLoading(true);
       const response = await fetch(`http://localhost:5000/api/appointments/complete/${appointmentId}`, {
-        method: 'PUT',
+        method: 'POST',
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await response.json();
