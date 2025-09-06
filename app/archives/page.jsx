@@ -376,7 +376,7 @@ const handleRestorePatient = async () => {
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Search by name..."
+                  placeholder="Rechercher par nom ..."
                   value={searchTerm}
                   onChange={handleSearchChange}
                   className="w-48 px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2E86AB] focus:border-transparent"
@@ -414,7 +414,7 @@ const handleRestorePatient = async () => {
                 </div>
                 <div className="space-y-2 mb-4">
                   <div>
-                    <span className="text-sm font-medium text-gray-700">Archived On:</span>
+                    <span className="text-sm font-medium text-gray-700">Archiver On:</span>
                     <span className="text-sm text-gray-600 ml-1">{patient.archivedOn}</span>
                   </div>
                   <div>
@@ -431,7 +431,7 @@ const handleRestorePatient = async () => {
                     }}
                     className="text-blue-600 text-sm hover:text-blue-800 font-medium"
                   >
-                    View Details
+                    View Détails
                   </button>
                   <button
                     onClick={() => {
@@ -440,7 +440,7 @@ const handleRestorePatient = async () => {
                     }}
                     className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700"
                   >
-                    Restore
+                    Restorer
                   </button>
                 </div>
               </div>

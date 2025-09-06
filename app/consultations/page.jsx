@@ -572,39 +572,39 @@ const ConsultationForm = () => {
 
   const validateForm = () => {
     if (!form.firstName.trim()) {
-      showAlert("First name is required", "error");
+      showAlert("Le prénom est obligatoire", "error");
       return false;
     }
     if (!form.lastName.trim()) {
-      showAlert("Last name is required", "error");
+      showAlert("Le nom de famille est obligatoire", "error");
       return false;
     }
     if (!form.typeOfProsthesis) {
-      showAlert("Type of prosthesis is required", "error");
+      showAlert("Le type de prothèse est obligatoire", "error");
       return false;
     }
     if (!form.totalPrice || parseFloat(form.totalPrice) < 0) {
-      showAlert("Total price must be a positive number", "error");
+      showAlert("Le prix total doit être un nombre positi", "error");
       return false;
     }
     if (parseFloat(form.amountPaid || 0) < 0) {
-      showAlert("Amount paid cannot be negative", "error");
+      showAlert("Le montant payé ne peut pas être négatif", "error");
       return false;
     }
     if (parseFloat(form.amountPaid || 0) > parseFloat(form.totalPrice)) {
-      showAlert("Amount paid cannot exceed total price", "error");
+      showAlert("Le montant payé ne peut pas dépasser le prix total", "error");
       return false;
     }
     if (form.needsFollowUp && !form.followUpDate) {
-      showAlert("Follow-up date is required when follow-up is needed", "error");
+      showAlert("La date du suivi est obligatoire lorsque le suivi est nécessaire", "error");
       return false;
     }
     if (form.needsFollowUp && !form.followUpTime) {
-      showAlert("Follow-up time is required when follow-up is needed", "error");
+      showAlert("L’heure du suivi est obligatoire lorsque le suivi est nécessaire", "error");
       return false;
     }
     if (form.teinte && form.teinte.length > 50) {
-      showAlert("Teinte must not exceed 50 characters", "error");
+      showAlert("La teinte ne doit pas dépasser 50 caractères", "error");
       return false;
     }
     return true;
@@ -627,7 +627,7 @@ const ConsultationForm = () => {
     try {
       const token = getAuthToken();
       if (!token) {
-        showAlert("Authentication token not found. Please log in again.", "error");
+        showAlert("Jeton d’authentification introuvable. Veuillez vous reconnecter", "error");
         setLoading(false);
         return;
       }
@@ -728,18 +728,18 @@ const ConsultationForm = () => {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-2xl font-semibold text-gray-900">New Consultation</h1>
+            <h1 className="text-2xl font-semibold text-gray-900">Nouvelle Consultation </h1>
           </div>
 
           {/* Form Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             {/* Patient Information */}
             <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Patient Information</h2>
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Informations du Patient </h2>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Prénom *</label>
                   <input
                     type="text"
                     value={form.firstName}
@@ -750,7 +750,7 @@ const ConsultationForm = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Nom de famille *</label>
                   <input
                     type="text"
                     value={form.lastName}
@@ -761,7 +761,7 @@ const ConsultationForm = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1"> Numéro de téléphone</label>
                   <input
                     type="text"
                     value={form.phoneNumber}
@@ -771,7 +771,7 @@ const ConsultationForm = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Consultation Date</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Date de Consultation </label>
                   <div className="relative">
                     <input
                       type="date"
@@ -788,16 +788,16 @@ const ConsultationForm = () => {
 
             {/* Treatment Details */}
             <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Treatment Details</h2>
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Détails du Traitement </h2>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Type of Prosthesis *</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Type de prothèse *</label>
                   <Select
                     value={form.typeOfProsthesis}
                     onChange={(value) => handleInputChange("typeOfProsthesis", value)}
                     options={prosthesisOptions}
-                    placeholder="Select prosthesis type"
+                    placeholder="Sélectionner le type de prothèse"
                   />
                 </div>
 
@@ -808,12 +808,12 @@ const ConsultationForm = () => {
                     value={form.teinte}
                     onChange={(e) => handleInputChange("teinte", e.target.value)}
                     className="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                    placeholder="Enter shade (e.g., A1, B2)"
+                    placeholder="Entrer la teinte"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Total Price *</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Prix Total *</label>
                   <input
                     type="number"
                     min="0"
@@ -826,7 +826,7 @@ const ConsultationForm = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Amount Paid</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Montant Payé</label>
                   <input
                     type="number"
                     min="0"
@@ -838,7 +838,7 @@ const ConsultationForm = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Remaining Balance</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Solde restant </label>
                   <div className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-50 text-gray-700 font-medium">
                     ${calculateRemainingBalance().toFixed(2)}
                   </div>
@@ -848,11 +848,11 @@ const ConsultationForm = () => {
 
             {/* Follow-up */}
             <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Follow-up</h2>
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Suivi</h2>
 
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium text-gray-700">Needs Follow-up Appointment?</label>
+                  <label className="text-sm font-medium text-gray-700">Nécessite un rendez-vous de suivi ?</label>
                   <Toggle
                     checked={form.needsFollowUp} // Fixed syntax error
                     onChange={() => handleInputChange("needsFollowUp", !form.needsFollowUp)}
@@ -862,7 +862,7 @@ const ConsultationForm = () => {
                 {form.needsFollowUp && (
                   <>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Follow-up Date *</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Date du suivi *</label>
                       <input
                         type="date"
                         value={form.followUpDate}
@@ -873,7 +873,7 @@ const ConsultationForm = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Follow-up Time *</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Heure du suivi*</label>
                       <input
                         type="time"
                         value={form.followUpTime}
@@ -891,16 +891,15 @@ const ConsultationForm = () => {
           {/* Action Buttons */}
           <div className="flex justify-end gap-3">
             <Button variant="default" onClick={handleCancel} disabled={loading}>
-              Cancel
+              Annuler
             </Button>
-            <Button variant="secondary" onClick={() => handleSubmit("print")} disabled={loading}>
+            <Button className="hidden" variant="secondary" onClick={() => handleSubmit("print")} disabled={loading}>
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
               Save & Print Receipt
             </Button>
             <Button variant="primary" onClick={() => handleSubmit("save")} disabled={loading}>
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-              Save Consultation
-            </Button>
+Enregistrer la consultation            </Button>
           </div>
 
           {/* Modal Alert */}
@@ -916,7 +915,7 @@ const ConsultationForm = () => {
                   onClick={() => setAlert(null)}
                   className="mt-4 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
                 >
-                  Close
+                  Fermer
                 </button>
               </div>
             </div>
