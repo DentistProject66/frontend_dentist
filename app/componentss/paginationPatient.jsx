@@ -10,7 +10,7 @@ const PaginationComponent = ({ currentPage, totalPages, onPageChange }) => {
         disabled={currentPage === 1}
         className="px-3 py-1.5 text-sm font-medium text-[#2E86AB] bg-[#FFFFFF] border border-gray-300 rounded-lg hover:bg-[#2E86AB] hover:text-[#FFFFFF] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
       >
-        Previous
+        précédent
       </button>
       {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
         <button
@@ -30,7 +30,7 @@ const PaginationComponent = ({ currentPage, totalPages, onPageChange }) => {
         disabled={currentPage === totalPages}
         className="px-3 py-1.5 text-sm font-medium text-[#2E86AB] bg-[#FFFFFF] border border-gray-300 rounded-lg hover:bg-[#2E86AB] hover:text-[#FFFFFF] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
       >
-        Next
+        suivant 
       </button>
     </div>
   );

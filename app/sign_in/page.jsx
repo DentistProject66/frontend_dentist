@@ -71,8 +71,8 @@ export default function SignIn() {
           <div className="text-3xl font-bold text-blue-600 mb-4" style={{ color: "#2E86AB" }}>
             ✱.logo
           </div>
-          <h1 className="text-xl font-semibold text-gray-800 mb-1">Sign in to your account</h1>
-          <p className="text-gray-500 text-sm">Welcome back! Please enter your details.</p>
+          <h1 className="text-xl font-semibold text-gray-800 mb-1">Connectez-vous à votre compte</h1>
+          <p className="text-gray-500 text-sm">Bienvenue ! Veuillez saisir vos coordonnées..</p>
         </div>
 
         {error && (
@@ -83,7 +83,7 @@ export default function SignIn() {
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email address</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Address Email </label>
             <input
               type="email"
               name="email"
@@ -96,7 +96,7 @@ export default function SignIn() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Mot de passe</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -131,9 +131,7 @@ export default function SignIn() {
               />
               <span className="ml-2 text-sm text-gray-600">Remember me</span>
             </label>
-            <a href="#" className="text-sm hover:underline" style={{ color: "#2E86AB" }}>
-              Forgot your password?
-            </a>
+           
           </div>
 
           <button
@@ -147,7 +145,7 @@ export default function SignIn() {
           </button>
           <div className="text-center pt-1">
             <span className="text-xs text-gray-600">
-              You don&apos;t have an account?{" "}
+              Vous n&apos;avez pas de compte ?{" "}
               <a href="/signup" className="hover:underline font-medium" style={{ color: "#2E86AB" }}>
                 Sign up
               </a>

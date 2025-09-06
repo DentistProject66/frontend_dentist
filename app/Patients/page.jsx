@@ -333,12 +333,12 @@ const PatientManagement = () => {
       <div className="bg-white m-8 overflow-hidden">
         <div className="border-b border-gray-200 px-6 py-4">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-semibold text-gray-900">Patient Management</h1>
+            <h1 className="text-2xl font-semibold text-gray-900">Management des Patients </h1>
             <div className="flex items-center space-x-4">
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Search by name..."
+                  placeholder="Rechercher par nom..."
                   value={searchTerm}
                   onChange={handleSearchChange}
                   className="w-48 px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2E86AB] focus:border-transparent"
