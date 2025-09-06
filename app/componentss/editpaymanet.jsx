@@ -28,7 +28,7 @@ const EditPayment = ({ payment, patientId, onClose, onPaymentUpdated }) => {
       }
 
       const response = await fetch(
-        `http://localhost:5000/api/payments/${payment.id}/patient/${patientId}`,
+        `https://backenddentist-production-12fe.up.railway.app/api/payments/${payment.id}/patient/${patientId}`,
         {
           method: 'PUT',
           headers: {

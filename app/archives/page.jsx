@@ -105,7 +105,7 @@ const handleRestorePatient = async () => {
 
     // Call the archives restore endpoint
     const response = await fetch(
-      `http://localhost:5000/api/archives/restore/${archive.id}`,
+      `https://backenddentist-production-12fe.up.railway.app/api/archives/restore/${archive.id}`,
       {
         method: "POST",
         headers: {
@@ -285,7 +285,7 @@ const handleRestorePatient = async () => {
         return;
       }
 
-      const url = new URL("http://localhost:5000/api/archives/");
+      const url = new URL("https://backenddentist-production-12fe.up.railway.app/api/archives/");
       url.searchParams.append("page", currentPage);
       url.searchParams.append("limit", patientsPerPage);
       if (searchTerm) url.searchParams.append("search", searchTerm);

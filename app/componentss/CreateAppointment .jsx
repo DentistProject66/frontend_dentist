@@ -46,7 +46,7 @@ const CreateAppointment = ({ patient, onClose, onAppointmentCreated }) => {
 
       try {
         const response = await fetch(
-          `http://localhost:5000/api/patients/${patient.id}`,
+          `https://backenddentist-production-12fe.up.railway.app/api/patients/${patient.id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -143,7 +143,7 @@ const CreateAppointment = ({ patient, onClose, onAppointmentCreated }) => {
 
       console.log("Creating appointment with data:", appointmentData);
 
-      const response = await fetch("http://localhost:5000/api/appointments", {
+      const response = await fetch("https://backenddentist-production-12fe.up.railway.app/api/appointments", {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,

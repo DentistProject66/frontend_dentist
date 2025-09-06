@@ -14,7 +14,7 @@
 //     const fetchPayments = async () => {
 //       try {
 //         setLoading(true);
-//         const response = await fetch('http://localhost:5000/api/payments', {
+//         const response = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments', {
 //           headers: { Authorization: `Bearer ${token}` },
 //         });
 //         const data = await response.json();
@@ -182,7 +182,7 @@
 //     const fetchPayments = async () => {
 //       try {
 //         setLoading(true);
-//         const response = await fetch('http://localhost:5000/api/payments', {
+//         const response = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments', {
 //           headers: { Authorization: `Bearer ${token}` },
 //         });
 //         const data = await response.json();
@@ -377,7 +377,7 @@ const InPaymentTable = ({ token }) => {
   const fetchPayments = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/payments', {
+      const response = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments', {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();

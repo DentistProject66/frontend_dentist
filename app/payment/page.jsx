@@ -33,19 +33,19 @@ const Page = () => {
     const fetchSummaryData = async () => {
       try {
         setLoading(true);
-        const todayRes = await fetch('http://localhost:5000/api/payments/reports?period=today', {
+        const todayRes = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments/reports?period=today', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const todayData = await todayRes.json();
         if (!todayData.success) throw new Error(todayData.message);
 
-        const weekRes = await fetch('http://localhost:5000/api/payments/reports?period=week', {
+        const weekRes = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments/reports?period=week', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const weekData = await weekRes.json();
         if (!weekData.success) throw new Error(weekData.message);
 
-        const monthRes = await fetch('http://localhost:5000/api/payments/reports?period=month', {
+        const monthRes = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments/reports?period=month', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const monthData = await monthRes.json();
