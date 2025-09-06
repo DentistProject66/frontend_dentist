@@ -70,7 +70,7 @@ const EditPatient = ({ patient, onClose, onPatientUpdated }) => {
 
       console.log("Updating patient with data:", updateData);
 
-      const response = await fetch(`http://localhost:5000/api/patients/${patient.id}`, {
+      const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/patients/${patient.id}`, {
         method: "PUT",
         headers: {
           "Authorization": `Bearer ${token}`,

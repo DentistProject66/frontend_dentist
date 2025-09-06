@@ -90,7 +90,7 @@
 
 //     try {
 //       const response = await fetch(
-//         `http://localhost:5000/api/patients/archive/${patient.id}`,
+//         `https://backenddentist-production-12fe.up.railway.app/api/patients/archive/${patient.id}`,
 //         {
 //           method: "POST",
 //           headers: {
@@ -183,7 +183,7 @@
 
 //         try {
 //           const patientResponse = await fetch(
-//             `http://localhost:5000/api/patients/${patient.id}`,
+//             `https://backenddentist-production-12fe.up.railway.app/api/patients/${patient.id}`,
 //             {
 //               headers: { Authorization: `Bearer ${token}` },
 //             }
@@ -507,7 +507,7 @@ const PatientCard = ({ patient, index, onPatientUpdate }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/patients/archive/${patient.id}`,
+        `https://backenddentist-production-12fe.up.railway.app/api/patients/archive/${patient.id}`,
         {
           method: "POST",
           headers: {
@@ -600,7 +600,7 @@ const PatientCard = ({ patient, index, onPatientUpdate }) => {
 
         try {
           const patientResponse = await fetch(
-            `http://localhost:5000/api/patients/${patient.id}`,
+            `https://backenddentist-production-12fe.up.railway.app/api/patients/${patient.id}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }

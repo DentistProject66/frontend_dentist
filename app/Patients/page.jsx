@@ -56,7 +56,7 @@
 //         return;
 //       }
 
-//       const url = new URL("http://localhost:5000/api/patients");
+//       const url = new URL("https://backenddentist-production-12fe.up.railway.app/api/patients");
 //       url.searchParams.append("page", currentPage);
 //       url.searchParams.append("limit", patientsPerPage);
 //       if (searchTerm) url.searchParams.append("search", searchTerm);
@@ -248,7 +248,7 @@ const PatientManagement = () => {
         return;
       }
 
-      const url = new URL("http://localhost:5000/api/patients");
+      const url = new URL("https://backenddentist-production-12fe.up.railway.app/api/patients");
       url.searchParams.append("page", currentPage);
       url.searchParams.append("limit", patientsPerPage);
       if (searchTerm) url.searchParams.append("search", searchTerm);

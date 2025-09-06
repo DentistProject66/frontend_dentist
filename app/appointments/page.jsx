@@ -55,7 +55,7 @@
 // //       if (!token) return;
 // //       try {
 // //         setLoading(true);
-// //         const response = await fetch('http://localhost:5000/api/appointments', {
+// //         const response = await fetch('https://backenddentist-production-12fe.up.railway.app/api/appointments', {
 // //           headers: { Authorization: `Bearer ${token}` },
 // //         });
 // //         const data = await response.json();
@@ -97,7 +97,7 @@
 // //       if (!token || !selectedDate) return;
 // //       try {
 // //         const dateStr = format(selectedDate, 'yyyy-MM-dd');
-// //         const response = await fetch(`http://localhost:5000/api/appointments/daily?date=${dateStr}`, {
+// //         const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/appointments/daily?date=${dateStr}`, {
 // //           headers: { Authorization: `Bearer ${token}` },
 // //         });
 // //         const data = await response.json();
@@ -169,7 +169,7 @@
 // //   const updateAppointment = async (appointmentId, updateData) => {
 // //     try {
 // //       setActionLoading(true);
-// //       const response = await fetch(`http://localhost:5000/api/appointments/${appointmentId}`, {
+// //       const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/appointments/${appointmentId}`, {
 // //         method: 'PUT',
 // //         headers: {
 // //           'Content-Type': 'application/json',
@@ -200,7 +200,7 @@
 // //   const cancelAppointment = async (appointmentId) => {
 // //     try {
 // //       setActionLoading(true);
-// //       const response = await fetch(`http://localhost:5000/api/appointments/cancel/${appointmentId}`, {
+// //       const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/appointments/cancel/${appointmentId}`, {
 // //         method: 'POST',
 // //         headers: { Authorization: `Bearer ${token}` }
 // //       });
@@ -224,7 +224,7 @@
 // //   const completeAppointment = async (appointmentId) => {
 // //     try {
 // //       setActionLoading(true);
-// //       const response = await fetch(`http://localhost:5000/api/appointments/complete/${appointmentId}`, {
+// //       const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/appointments/complete/${appointmentId}`, {
 // //         method: 'POST',
 // //         headers: { Authorization: `Bearer ${token}` }
 // //       });
@@ -256,7 +256,7 @@
 // //   const createAppointment = async (appointmentData) => {
 // //     try {
 // //       setActionLoading(true);
-// //       const response = await fetch('http://localhost:5000/api/consultations', {
+// //       const response = await fetch('https://backenddentist-production-12fe.up.railway.app/api/consultations', {
 // //         method: 'POST',
 // //         headers: {
 // //           'Content-Type': 'application/json',
@@ -270,7 +270,7 @@
 // //       const data = await response.json();
 // //       if (response.ok && data.success) {
 // //         // Refresh appointments list
-// //         const appointmentsResponse = await fetch('http://localhost:5000/api/appointments', {
+// //         const appointmentsResponse = await fetch('https://backenddentist-production-12fe.up.railway.app/api/appointments', {
 // //           headers: { Authorization: `Bearer ${token}` },
 // //         });
 // //         const appointmentsData = await appointmentsResponse.json();
@@ -310,7 +310,7 @@
 // //   const fetchAvailableSlots = async (date) => {
 // //     try {
 // //       const dateStr = format(date, 'yyyy-MM-dd');
-// //       const response = await fetch(`http://localhost:5000/api/appointments/slots/${dateStr}`, {
+// //       const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/appointments/slots/${dateStr}`, {
 // //         headers: { Authorization: `Bearer ${token}` }
 // //       });
 // //       const data = await response.json();
@@ -974,7 +974,7 @@
 //       if (!token) return;
 //       try {
 //         setLoading(true);
-//         const response = await fetch('http://localhost:5000/api/appointments', {
+//         const response = await fetch('https://backenddentist-production-12fe.up.railway.app/api/appointments', {
 //           headers: { Authorization: `Bearer ${token}` },
 //         });
 //         const data = await response.json();
@@ -1016,7 +1016,7 @@
 //       if (!token || !selectedDate) return;
 //       try {
 //         const dateStr = format(selectedDate, 'yyyy-MM-dd');
-//         const response = await fetch(`http://localhost:5000/api/appointments/daily?date=${dateStr}`, {
+//         const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/appointments/daily?date=${dateStr}`, {
 //           headers: { Authorization: `Bearer ${token}` },
 //         });
 //         const data = await response.json();
@@ -1088,7 +1088,7 @@
 //   const updateAppointment = async (appointmentId, updateData) => {
 //     try {
 //       setActionLoading(true);
-//       const response = await fetch(`http://localhost:5000/api/appointments/${appointmentId}`, {
+//       const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/appointments/${appointmentId}`, {
 //         method: 'PUT',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -1119,7 +1119,7 @@
 //   const cancelAppointment = async (appointmentId) => {
 //     try {
 //       setActionLoading(true);
-//       const response = await fetch(`http://localhost:5000/api/appointments/cancel/${appointmentId}`, {
+//       const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/appointments/cancel/${appointmentId}`, {
 //         method: 'POST',
 //         headers: { Authorization: `Bearer ${token}` }
 //       });
@@ -1143,7 +1143,7 @@
 //   const completeAppointment = async (appointmentId) => {
 //     try {
 //       setActionLoading(true);
-//       const response = await fetch(`http://localhost:5000/api/appointments/complete/${appointmentId}`, {
+//       const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/appointments/complete/${appointmentId}`, {
 //         method: 'POST',
 //         headers: { Authorization: `Bearer ${token}` }
 //       });
@@ -1175,7 +1175,7 @@
 //   const createAppointment = async (appointmentData) => {
 //     try {
 //       setActionLoading(true);
-//       const response = await fetch('http://localhost:5000/api/consultations', {
+//       const response = await fetch('https://backenddentist-production-12fe.up.railway.app/api/consultations', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -1189,7 +1189,7 @@
 //       const data = await response.json();
 //       if (response.ok && data.success) {
 //         // Refresh appointments list
-//         const appointmentsResponse = await fetch('http://localhost:5000/api/appointments', {
+//         const appointmentsResponse = await fetch('https://backenddentist-production-12fe.up.railway.app/api/appointments', {
 //           headers: { Authorization: `Bearer ${token}` },
 //         });
 //         const appointmentsData = await appointmentsResponse.json();
@@ -1229,7 +1229,7 @@
 //   const fetchAvailableSlots = async (date) => {
 //     try {
 //       const dateStr = format(date, 'yyyy-MM-dd');
-//       const response = await fetch(`http://localhost:5000/api/appointments/slots/${dateStr}`, {
+//       const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/appointments/slots/${dateStr}`, {
 //         headers: { Authorization: `Bearer ${token}` }
 //       });
 //       const data = await response.json();
@@ -1896,7 +1896,7 @@ const AppointmentsPage = () => {
       if (!token) return;
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:5000/api/appointments', {
+        const response = await fetch('https://backenddentist-production-12fe.up.railway.app/api/appointments', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await response.json();
@@ -1938,7 +1938,7 @@ const AppointmentsPage = () => {
       if (!token || !selectedDate) return;
       try {
         const dateStr = format(selectedDate, 'yyyy-MM-dd');
-        const response = await fetch(`http://localhost:5000/api/appointments/daily?date=${dateStr}`, {
+        const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/appointments/daily?date=${dateStr}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await response.json();
@@ -1996,7 +1996,7 @@ const AppointmentsPage = () => {
   const updateAppointment = async (appointmentId, updateData) => {
     try {
       setActionLoading(true);
-      const response = await fetch(`http://localhost:5000/api/appointments/${appointmentId}`, {
+      const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/appointments/${appointmentId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -2027,7 +2027,7 @@ const AppointmentsPage = () => {
   const cancelAppointment = async (appointmentId) => {
     try {
       setActionLoading(true);
-      const response = await fetch(`http://localhost:5000/api/appointments/cancel/${appointmentId}`, {
+      const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/appointments/cancel/${appointmentId}`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -2051,7 +2051,7 @@ const AppointmentsPage = () => {
   const completeAppointment = async (appointmentId) => {
     try {
       setActionLoading(true);
-      const response = await fetch(`http://localhost:5000/api/appointments/complete/${appointmentId}`, {
+      const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/appointments/complete/${appointmentId}`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -2083,7 +2083,7 @@ const AppointmentsPage = () => {
   const createAppointment = async (appointmentData) => {
     try {
       setActionLoading(true);
-      const response = await fetch('http://localhost:5000/api/consultations', {
+      const response = await fetch('https://backenddentist-production-12fe.up.railway.app/api/consultations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -2097,7 +2097,7 @@ const AppointmentsPage = () => {
       const data = await response.json();
       if (response.ok && data.success) {
         // Refresh appointments list
-        const appointmentsResponse = await fetch('http://localhost:5000/api/appointments', {
+        const appointmentsResponse = await fetch('https://backenddentist-production-12fe.up.railway.app/api/appointments', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const appointmentsData = await appointmentsResponse.json();
@@ -2137,7 +2137,7 @@ const AppointmentsPage = () => {
   const fetchAvailableSlots = async (date) => {
     try {
       const dateStr = format(date, 'yyyy-MM-dd');
-      const response = await fetch(`http://localhost:5000/api/appointments/slots/${dateStr}`, {
+      const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/appointments/slots/${dateStr}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await response.json();

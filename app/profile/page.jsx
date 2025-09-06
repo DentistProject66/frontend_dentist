@@ -23,7 +23,7 @@ const AccountSettings = () => {
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) {
-      fetch('http://localhost:5000/api/auth/profile', {
+      fetch('https://backenddentist-production-12fe.up.railway.app/api/auth/profile', {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(response => response.json())
