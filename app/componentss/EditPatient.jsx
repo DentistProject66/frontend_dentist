@@ -474,6 +474,217 @@
 
 
 
+// "use client";
+// import React, { useState } from 'react';
+// import { X } from 'lucide-react';
+
+// const EditPayment = ({ payment, patientId, onClose, onPaymentUpdated }) => {
+//   const [form, setForm] = useState({
+//     amountPaidNow: '',
+//     paymentMethod: payment.payment_method ? payment.payment_method.toLowerCase() : 'cash',
+//   });
+//   const [error, setError] = useState(null);
+//   const [loading, setLoading] = useState(false);
+
+//   // Get today's date in YYYY-MM-DD format
+//   const today = new Date().toISOString().split('T')[0];
+
+//   // Original payment details with fallback
+//   console.log('Payment prop:', payment); // Debug: Log payment prop
+//   const amountPaidBefore = parseFloat(payment.amount_paid || 0).toFixed(2);
+//   const totalPrice = parseFloat(
+//     payment.total_price ||
+//     (parseFloat(payment.amount_paid || 0) + parseFloat(payment.remaining_balance || 0)) ||
+//     0
+//   ).toFixed(2);
+
+//   const handleInputChange = (field, value) => {
+//     setForm((prev) => ({ ...prev, [field]: value }));
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setLoading(true);
+//     setError(null);
+
+//     const token = localStorage.getItem('authToken');
+//     console.log('Token:', token ? 'Present' : 'Missing'); // Debug: Log token
+//     if (!token) {
+//       setError('No valid authentication token found. Please log in.');
+//       setLoading(false);
+//       return;
+//     }
+
+//     try {
+//       // Validate new payment amount
+//       console.log('Form data:', form); // Debug: Log form data
+//       const newAmountPaid = parseFloat(form.amountPaidNow);
+//       if (isNaN(newAmountPaid) || newAmountPaid <= 0) {
+//         setError('Please enter a valid payment amount greater than 0.');
+//         setLoading(false);
+//         return;
+//       }
+
+//       // Validate required payment fields
+//       if (!payment.consultation_id || !patientId || !payment.patient_name) {
+//         setError('Missing required payment data (consultation_id, patient_id, or patient_name).');
+//         setLoading(false);
+//         return;
+//       }
+
+//       // Fetch consultation to validate remaining_balance
+//       console.log('Fetching consultation:', payment.consultation_id); // Debug
+//       const consultResponse = await fetch(
+//         `https://backenddentist-production-12fe.up.railway.app/api/consultations/${payment.consultation_id}`,
+//         {
+//           method: 'GET',
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//           },
+//         }
+//       );
+
+//       const consultData = await consultResponse.json();
+//       console.log('Consultation response:', consultData); // Debug
+//       if (!consultResponse.ok || !consultData.success) {
+//         throw new Error(consultData.message || `Failed to fetch consultation: HTTP ${consultResponse.status}`);
+//       }
+
+//       const currentConsultation = consultData.data;
+//       const currentRemainingBalance = parseFloat(currentConsultation.remaining_balance || 0);
+//       if (newAmountPaid > currentRemainingBalance) {
+//         setError(`Payment amount (${newAmountPaid} DA) exceeds remaining balance (${currentRemainingBalance} DA).`);
+//         setLoading(false);
+//         return;
+//       }
+
+//       // Create new payment record
+//       const newPayment = {
+//         consultation_id: payment.consultation_id,
+//         patient_id: patientId,
+//         patient_name: payment.patient_name,
+//         payment_date: today,
+//         amount_paid: newAmountPaid.toFixed(2),
+//         payment_method: form.paymentMethod,
+//       };
+
+//       console.log('Creating payment:', newPayment); // Debug
+//       const paymentResponse = await fetch(
+//         'https://backenddentist-production-12fe.up.railway.app/api/payments',
+//         {
+//           method: 'POST',
+//           headers: {
+//             'Content-Type': 'application/json',
+//             Authorization: `Bearer ${token}`,
+//           },
+//           body: JSON.stringify(newPayment),
+//         }
+//       );
+
+//       const paymentData = await paymentResponse.json();
+//       console.log('Payment response:', paymentData); // Debug
+//       if (!paymentResponse.ok || !paymentData.success) {
+//         throw new Error(paymentData.message || `Failed to create payment: HTTP ${paymentResponse.status}`);
+//       }
+
+//       onPaymentUpdated();
+//       onClose();
+//     } catch (error) {
+//       console.error('Error updating payment:', error);
+//       setError(error.message || 'An error occurred while updating the payment.');
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+//       <div className="bg-white rounded-lg p-6 max-w-md w-full">
+//         <div className="flex justify-between items-center mb-4">
+//           <h2 className="text-xl font-semibold text-gray-900">Edit Payment</h2>
+//           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+//             <X className="w-6 h-6" />
+//           </button>
+//         </div>
+//         {error && <div className="text-red-600 mb-4">{error}</div>}
+//         <form onSubmit={handleSubmit} className="space-y-4">
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700 mb-1">Amount Paid (Before)</label>
+//             <input
+//               type="text"
+//               value={`${amountPaidBefore} DA`}
+//               readOnly
+//               className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-100"
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700 mb-1">Amount Paid (Now)</label>
+//             <input
+//               type="number"
+//               min="0.01"
+//               step="0.01"
+//               value={form.amountPaidNow}
+//               onChange={(e) => handleInputChange('amountPaidNow', e.target.value)}
+//               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+//               placeholder="Enter new payment amount"
+//               required
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700 mb-1">Total Price</label>
+//             <input
+//               type="text"
+//               value={`${totalPrice} DA`}
+//               readOnly
+//               className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-100"
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700 mb-1">Payment Date (Today)</label>
+//             <input
+//               type="text"
+//               value={today}
+//               readOnly
+//               className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-100"
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700 mb-1">Payment Method</label>
+//             <select
+//               value={form.paymentMethod}
+//               onChange={(e) => handleInputChange('paymentMethod', e.target.value)}
+//               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+//               required
+//             >
+//               <option value="cash">Cash</option>
+//               <option value="check">Check</option>
+//               <option value="card">Card</option>
+//             </select>
+//           </div>
+//           <div className="flex justify-end gap-3">
+//             <button
+//               type="button"
+//               onClick={onClose}
+//               className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+//             >
+//               Cancel
+//             </button>
+//             <button
+//               type="submit"
+//               disabled={loading}
+//               className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50"
+//             >
+//               {loading ? 'Saving...' : 'Save Payment'}
+//             </button>
+//           </div>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default EditPayment;
+
 "use client";
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
@@ -532,7 +743,15 @@ const EditPayment = ({ payment, patientId, onClose, onPaymentUpdated }) => {
         return;
       }
 
-      // Fetch consultation to validate remaining_balance
+      // Check if new payment exceeds remaining balance
+      const currentRemainingBalance = parseFloat(payment.remaining_balance || 0);
+      if (newAmountPaid > currentRemainingBalance) {
+        setError(`Payment amount (${newAmountPaid} DA) exceeds remaining balance (${currentRemainingBalance} DA).`);
+        setLoading(false);
+        return;
+      }
+
+      // Fetch consultation to validate remaining_balance (optional double-check)
       console.log('Fetching consultation:', payment.consultation_id); // Debug
       const consultResponse = await fetch(
         `https://backenddentist-production-12fe.up.railway.app/api/consultations/${payment.consultation_id}`,
@@ -551,14 +770,14 @@ const EditPayment = ({ payment, patientId, onClose, onPaymentUpdated }) => {
       }
 
       const currentConsultation = consultData.data;
-      const currentRemainingBalance = parseFloat(currentConsultation.remaining_balance || 0);
-      if (newAmountPaid > currentRemainingBalance) {
-        setError(`Payment amount (${newAmountPaid} DA) exceeds remaining balance (${currentRemainingBalance} DA).`);
+      const consultationRemainingBalance = parseFloat(currentConsultation.remaining_balance || 0);
+      if (newAmountPaid > consultationRemainingBalance) {
+        setError(`Payment amount (${newAmountPaid} DA) exceeds consultation remaining balance (${consultationRemainingBalance} DA).`);
         setLoading(false);
         return;
       }
 
-      // Create new payment record
+      // Create new payment record (this still happens in the backend)
       const newPayment = {
         consultation_id: payment.consultation_id,
         patient_id: patientId,
@@ -587,7 +806,8 @@ const EditPayment = ({ payment, patientId, onClose, onPaymentUpdated }) => {
         throw new Error(paymentData.message || `Failed to create payment: HTTP ${paymentResponse.status}`);
       }
 
-      onPaymentUpdated();
+      // Pass the original payment and new amount to update frontend state
+      onPaymentUpdated(payment, newAmountPaid);
       onClose();
     } catch (error) {
       console.error('Error updating payment:', error);
@@ -635,6 +855,15 @@ const EditPayment = ({ payment, patientId, onClose, onPaymentUpdated }) => {
             <input
               type="text"
               value={`${totalPrice} DA`}
+              readOnly
+              className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-100"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Remaining Balance After Payment</label>
+            <input
+              type="text"
+              value={`${form.amountPaidNow ? (parseFloat(payment.remaining_balance) - parseFloat(form.amountPaidNow || 0)).toFixed(2) : parseFloat(payment.remaining_balance).toFixed(2)} DA`}
               readOnly
               className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-100"
             />
