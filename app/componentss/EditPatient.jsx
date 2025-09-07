@@ -237,231 +237,673 @@
 
 
 
+// "use client";
+// import React, { useState } from "react";
+// import { X, Edit, User, Phone } from "lucide-react";
+
+// const EditPatient = ({ patient, onClose, onPatientUpdated }) => {
+//   const [formData, setFormData] = useState({
+//     first_name: patient.name?.split(" ")[0] || "",
+//     last_name: patient.name?.split(" ").slice(1).join(" ") || "",
+//     phone: patient.phone || "",
+//   });
+//   const [isSubmitting, setIsSubmitting] = useState(false);
+//   const [error, setError] = useState(null);
+
+//   const handleInputChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((prev) => ({
+//       ...prev,
+//       [name]: value,
+//     }));
+//     setError(null);
+//   };
+
+//   const validateForm = () => {
+//     if (!formData.first_name.trim()) {
+//       setError("Le prénom est requis");
+//       return false;
+//     }
+//     if (!formData.last_name.trim()) {
+//       setError("Le nom est requis");
+//       return false;
+//     }
+//     if (!formData.phone.trim()) {
+//       setError("Le numéro de téléphone est requis");
+//       return false;
+//     }
+
+//     // Validation basique du téléphone
+//     const phoneRegex = /^[0-9+\-\s()]+$/;
+//     if (!phoneRegex.test(formData.phone)) {
+//       setError("Veuillez entrer un numéro de téléphone valide");
+//       return false;
+//     }
+
+//     return true;
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     if (!validateForm()) {
+//       return;
+//     }
+
+//     setIsSubmitting(true);
+//     setError(null);
+
+//     const token = localStorage.getItem("authToken");
+//     if (!token || token.trim() === "") {
+//       setError("Aucun jeton d’authentification valide trouvé. Veuillez vous reconnecter.");
+//       setIsSubmitting(false);
+//       return;
+//     }
+
+//     try {
+//       const updateData = {
+//         first_name: formData.first_name.trim(),
+//         last_name: formData.last_name.trim(),
+//         phone: formData.phone.trim(),
+//       };
+
+//       const response = await fetch(
+//         `https://backenddentist-production-12fe.up.railway.app/api/patients/${patient.id}`,
+//         {
+//           method: "PUT",
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//             "Content-Type": "application/json",
+//           },
+//           body: JSON.stringify(updateData),
+//         }
+//       );
+
+//       if (!response.ok) {
+//         const errorData = await response.json().catch(() => null);
+//         throw new Error(errorData?.message || `Erreur HTTP ! status: ${response.status}`);
+//       }
+
+//       const data = await response.json();
+
+//       if (data.success) {
+//         if (onPatientUpdated) {
+//           onPatientUpdated();
+//         }
+//         onClose();
+//       } else {
+//         throw new Error(data.message || "Échec de la mise à jour du patient");
+//       }
+//     } catch (error) {
+//       setError(error.message || "Une erreur est survenue lors de la mise à jour du patient");
+//     } finally {
+//       setIsSubmitting(false);
+//     }
+//   };
+
+//   return (
+//     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+//       <div className="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+//         {/* En-tête */}
+//         <div className="flex items-center justify-between p-6 border-b border-gray-200">
+//           <h2 className="text-xl font-semibold text-gray-900 flex items-center">
+//             <Edit className="w-5 h-5 mr-2 text-blue-600" />
+//             Modifier un patient
+//           </h2>
+//           <button
+//             onClick={onClose}
+//             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+//           >
+//             <X className="w-5 h-5 text-gray-500" />
+//           </button>
+//         </div>
+
+//         {/* Informations actuelles du patient */}
+//         <div className="p-6 bg-gray-50 border-b border-gray-200">
+//           <div className="flex items-center space-x-3">
+//             <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+//               <User className="w-5 h-5 text-white" />
+//             </div>
+//             <div>
+//               <h3 className="font-medium text-gray-900">Actuel : {patient.name}</h3>
+//               <div className="flex items-center text-sm text-gray-600">
+//                 <Phone className="w-3 h-3 mr-1" />
+//                 {patient.phone}
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Formulaire */}
+//         <form onSubmit={handleSubmit} className="p-6 space-y-4">
+//           {error && (
+//             <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+//               <p className="text-red-800 text-sm">{error}</p>
+//             </div>
+//           )}
+
+//           {/* Prénom */}
+//           <div>
+//             <label htmlFor="first_name" className="block text-sm font-medium text-gray-700 mb-2">
+//               Prénom <span className="text-red-500">*</span>
+//             </label>
+//             <input
+//               type="text"
+//               id="first_name"
+//               name="first_name"
+//               value={formData.first_name}
+//               onChange={handleInputChange}
+//               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+//               placeholder="Entrez le prénom"
+//               required
+//             />
+//           </div>
+
+//           {/* Nom */}
+//           <div>
+//             <label htmlFor="last_name" className="block text-sm font-medium text-gray-700 mb-2">
+//               Nom <span className="text-red-500">*</span>
+//             </label>
+//             <input
+//               type="text"
+//               id="last_name"
+//               name="last_name"
+//               value={formData.last_name}
+//               onChange={handleInputChange}
+//               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+//               placeholder="Entrez le nom"
+//               required
+//             />
+//           </div>
+
+//           {/* Téléphone */}
+//           <div>
+//             <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+//               Numéro de téléphone <span className="text-red-500">*</span>
+//             </label>
+//             <div className="relative">
+//               <input
+//                 type="tel"
+//                 id="phone"
+//                 name="phone"
+//                 value={formData.phone}
+//                 onChange={handleInputChange}
+//                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+//                 placeholder="Entrez le numéro de téléphone"
+//                 required
+//               />
+//               <Phone className="absolute right-3 top-2.5 w-4 h-4 text-gray-400 pointer-events-none" />
+//             </div>
+//           </div>
+
+//           {/* Boutons */}
+//           <div className="flex space-x-3 pt-4">
+//             <button
+//               type="button"
+//               onClick={onClose}
+//               className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+//               disabled={isSubmitting}
+//             >
+//               Annuler
+//             </button>
+//             <button
+//               type="submit"
+//               disabled={isSubmitting}
+//               className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+//             >
+//               {isSubmitting ? (
+//                 <>
+//                   <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>
+//                   Mise à jour...
+//                 </>
+//               ) : (
+//                 <>
+//                   <Edit className="w-4 h-4 mr-2" />
+//                   Terminer
+//                 </>
+//               )}
+//             </button>
+//           </div>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default EditPatient;
+
+
+
+// "use client";
+// import React, { useState } from 'react';
+// import { X } from 'lucide-react';
+
+// const EditPayment = ({ payment, patientId, onClose, onPaymentUpdated }) => {
+//   const [form, setForm] = useState({
+//     amountPaidNow: '',
+//     paymentMethod: payment.payment_method ? payment.payment_method.toLowerCase() : 'cash',
+//   });
+//   const [error, setError] = useState(null);
+//   const [loading, setLoading] = useState(false);
+
+//   // Get today's date in YYYY-MM-DD format
+//   const today = new Date().toISOString().split('T')[0];
+
+//   // Original payment details with fallback
+//   console.log('Payment prop:', payment); // Debug: Log payment prop
+//   const amountPaidBefore = parseFloat(payment.amount_paid || 0).toFixed(2);
+//   const totalPrice = parseFloat(
+//     payment.total_price ||
+//     (parseFloat(payment.amount_paid || 0) + parseFloat(payment.remaining_balance || 0)) ||
+//     0
+//   ).toFixed(2);
+
+//   const handleInputChange = (field, value) => {
+//     setForm((prev) => ({ ...prev, [field]: value }));
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setLoading(true);
+//     setError(null);
+
+//     const token = localStorage.getItem('authToken');
+//     console.log('Token:', token ? 'Present' : 'Missing'); // Debug: Log token
+//     if (!token) {
+//       setError('No valid authentication token found. Please log in.');
+//       setLoading(false);
+//       return;
+//     }
+
+//     try {
+//       // Validate new payment amount
+//       console.log('Form data:', form); // Debug: Log form data
+//       const newAmountPaid = parseFloat(form.amountPaidNow);
+//       if (isNaN(newAmountPaid) || newAmountPaid <= 0) {
+//         setError('Please enter a valid payment amount greater than 0.');
+//         setLoading(false);
+//         return;
+//       }
+
+//       // Validate required payment fields
+//       if (!payment.consultation_id || !patientId || !payment.patient_name) {
+//         setError('Missing required payment data (consultation_id, patient_id, or patient_name).');
+//         setLoading(false);
+//         return;
+//       }
+
+//       // Fetch consultation to validate remaining_balance
+//       console.log('Fetching consultation:', payment.consultation_id); // Debug
+//       const consultResponse = await fetch(
+//         `https://backenddentist-production-12fe.up.railway.app/api/consultations/${payment.consultation_id}`,
+//         {
+//           method: 'GET',
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//           },
+//         }
+//       );
+
+//       const consultData = await consultResponse.json();
+//       console.log('Consultation response:', consultData); // Debug
+//       if (!consultResponse.ok || !consultData.success) {
+//         throw new Error(consultData.message || `Failed to fetch consultation: HTTP ${consultResponse.status}`);
+//       }
+
+//       const currentConsultation = consultData.data;
+//       const currentRemainingBalance = parseFloat(currentConsultation.remaining_balance || 0);
+//       if (newAmountPaid > currentRemainingBalance) {
+//         setError(`Payment amount (${newAmountPaid} DA) exceeds remaining balance (${currentRemainingBalance} DA).`);
+//         setLoading(false);
+//         return;
+//       }
+
+//       // Create new payment record
+//       const newPayment = {
+//         consultation_id: payment.consultation_id,
+//         patient_id: patientId,
+//         patient_name: payment.patient_name,
+//         payment_date: today,
+//         amount_paid: newAmountPaid.toFixed(2),
+//         payment_method: form.paymentMethod,
+//       };
+
+//       console.log('Creating payment:', newPayment); // Debug
+//       const paymentResponse = await fetch(
+//         'https://backenddentist-production-12fe.up.railway.app/api/payments',
+//         {
+//           method: 'POST',
+//           headers: {
+//             'Content-Type': 'application/json',
+//             Authorization: `Bearer ${token}`,
+//           },
+//           body: JSON.stringify(newPayment),
+//         }
+//       );
+
+//       const paymentData = await paymentResponse.json();
+//       console.log('Payment response:', paymentData); // Debug
+//       if (!paymentResponse.ok || !paymentData.success) {
+//         throw new Error(paymentData.message || `Failed to create payment: HTTP ${paymentResponse.status}`);
+//       }
+
+//       onPaymentUpdated();
+//       onClose();
+//     } catch (error) {
+//       console.error('Error updating payment:', error);
+//       setError(error.message || 'An error occurred while updating the payment.');
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+//       <div className="bg-white rounded-lg p-6 max-w-md w-full">
+//         <div className="flex justify-between items-center mb-4">
+//           <h2 className="text-xl font-semibold text-gray-900">Edit Payment</h2>
+//           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+//             <X className="w-6 h-6" />
+//           </button>
+//         </div>
+//         {error && <div className="text-red-600 mb-4">{error}</div>}
+//         <form onSubmit={handleSubmit} className="space-y-4">
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700 mb-1">Amount Paid (Before)</label>
+//             <input
+//               type="text"
+//               value={`${amountPaidBefore} DA`}
+//               readOnly
+//               className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-100"
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700 mb-1">Amount Paid (Now)</label>
+//             <input
+//               type="number"
+//               min="0.01"
+//               step="0.01"
+//               value={form.amountPaidNow}
+//               onChange={(e) => handleInputChange('amountPaidNow', e.target.value)}
+//               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+//               placeholder="Enter new payment amount"
+//               required
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700 mb-1">Total Price</label>
+//             <input
+//               type="text"
+//               value={`${totalPrice} DA`}
+//               readOnly
+//               className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-100"
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700 mb-1">Payment Date (Today)</label>
+//             <input
+//               type="text"
+//               value={today}
+//               readOnly
+//               className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-100"
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700 mb-1">Payment Method</label>
+//             <select
+//               value={form.paymentMethod}
+//               onChange={(e) => handleInputChange('paymentMethod', e.target.value)}
+//               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+//               required
+//             >
+//               <option value="cash">Cash</option>
+//               <option value="check">Check</option>
+//               <option value="card">Card</option>
+//             </select>
+//           </div>
+//           <div className="flex justify-end gap-3">
+//             <button
+//               type="button"
+//               onClick={onClose}
+//               className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+//             >
+//               Cancel
+//             </button>
+//             <button
+//               type="submit"
+//               disabled={loading}
+//               className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50"
+//             >
+//               {loading ? 'Saving...' : 'Save Payment'}
+//             </button>
+//           </div>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default EditPayment;
+
 "use client";
-import React, { useState } from "react";
-import { X, Edit, User, Phone } from "lucide-react";
+import React, { useState } from 'react';
+import { X } from 'lucide-react';
 
-const EditPatient = ({ patient, onClose, onPatientUpdated }) => {
-  const [formData, setFormData] = useState({
-    first_name: patient.name?.split(" ")[0] || "",
-    last_name: patient.name?.split(" ").slice(1).join(" ") || "",
-    phone: patient.phone || "",
+const EditPayment = ({ payment, patientId, onClose, onPaymentUpdated }) => {
+  const [form, setForm] = useState({
+    amountPaidNow: '',
+    paymentMethod: payment.payment_method ? payment.payment_method.toLowerCase() : 'cash',
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    setError(null);
-  };
+  // Get today's date in YYYY-MM-DD format
+  const today = new Date().toISOString().split('T')[0];
 
-  const validateForm = () => {
-    if (!formData.first_name.trim()) {
-      setError("Le prénom est requis");
-      return false;
-    }
-    if (!formData.last_name.trim()) {
-      setError("Le nom est requis");
-      return false;
-    }
-    if (!formData.phone.trim()) {
-      setError("Le numéro de téléphone est requis");
-      return false;
-    }
+  // Original payment details with fallback
+  console.log('Payment prop:', payment); // Debug: Log payment prop
+  const amountPaidBefore = parseFloat(payment.amount_paid || 0).toFixed(2);
+  const totalPrice = parseFloat(
+    payment.total_price ||
+    (parseFloat(payment.amount_paid || 0) + parseFloat(payment.remaining_balance || 0)) ||
+    0
+  ).toFixed(2);
 
-    // Validation basique du téléphone
-    const phoneRegex = /^[0-9+\-\s()]+$/;
-    if (!phoneRegex.test(formData.phone)) {
-      setError("Veuillez entrer un numéro de téléphone valide");
-      return false;
-    }
-
-    return true;
+  const handleInputChange = (field, value) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
-
-    setIsSubmitting(true);
+    setLoading(true);
     setError(null);
 
-    const token = localStorage.getItem("authToken");
-    if (!token || token.trim() === "") {
-      setError("Aucun jeton d’authentification valide trouvé. Veuillez vous reconnecter.");
-      setIsSubmitting(false);
+    const token = localStorage.getItem('authToken');
+    console.log('Token:', token ? 'Present' : 'Missing'); // Debug: Log token
+    if (!token) {
+      setError('No valid authentication token found. Please log in.');
+      setLoading(false);
       return;
     }
 
     try {
-      const updateData = {
-        first_name: formData.first_name.trim(),
-        last_name: formData.last_name.trim(),
-        phone: formData.phone.trim(),
-      };
+      // Validate new payment amount
+      console.log('Form data:', form); // Debug: Log form data
+      const newAmountPaid = parseFloat(form.amountPaidNow);
+      if (isNaN(newAmountPaid) || newAmountPaid <= 0) {
+        setError('Please enter a valid payment amount greater than 0.');
+        setLoading(false);
+        return;
+      }
 
-      const response = await fetch(
-        `https://backenddentist-production-12fe.up.railway.app/api/patients/${patient.id}`,
+      // Validate required payment fields
+      if (!payment.consultation_id || !patientId || !payment.patient_name) {
+        setError('Missing required payment data (consultation_id, patient_id, or patient_name).');
+        setLoading(false);
+        return;
+      }
+
+      // Check if new payment exceeds remaining balance
+      const currentRemainingBalance = parseFloat(payment.remaining_balance || 0);
+      if (newAmountPaid > currentRemainingBalance) {
+        setError(`Payment amount (${newAmountPaid} DA) exceeds remaining balance (${currentRemainingBalance} DA).`);
+        setLoading(false);
+        return;
+      }
+
+      // Fetch consultation to validate remaining_balance (optional double-check)
+      console.log('Fetching consultation:', payment.consultation_id); // Debug
+      const consultResponse = await fetch(
+        `https://backenddentist-production-12fe.up.railway.app/api/consultations/${payment.consultation_id}`,
         {
-          method: "PUT",
+          method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
           },
-          body: JSON.stringify(updateData),
         }
       );
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => null);
-        throw new Error(errorData?.message || `Erreur HTTP ! status: ${response.status}`);
+      const consultData = await consultResponse.json();
+      console.log('Consultation response:', consultData); // Debug
+      if (!consultResponse.ok || !consultData.success) {
+        throw new Error(consultData.message || `Failed to fetch consultation: HTTP ${consultResponse.status}`);
       }
 
-      const data = await response.json();
+      const currentConsultation = consultData.data;
+      const consultationRemainingBalance = parseFloat(currentConsultation.remaining_balance || 0);
+      if (newAmountPaid > consultationRemainingBalance) {
+        setError(`Payment amount (${newAmountPaid} DA) exceeds consultation remaining balance (${consultationRemainingBalance} DA).`);
+        setLoading(false);
+        return;
+      }
 
-      if (data.success) {
-        if (onPatientUpdated) {
-          onPatientUpdated();
+      // Create new payment record (this still happens in the backend)
+      const newPayment = {
+        consultation_id: payment.consultation_id,
+        patient_id: patientId,
+        patient_name: payment.patient_name,
+        payment_date: today,
+        amount_paid: newAmountPaid.toFixed(2),
+        payment_method: form.paymentMethod,
+      };
+
+      console.log('Creating payment:', newPayment); // Debug
+      const paymentResponse = await fetch(
+        'https://backenddentist-production-12fe.up.railway.app/api/payments',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(newPayment),
         }
-        onClose();
-      } else {
-        throw new Error(data.message || "Échec de la mise à jour du patient");
+      );
+
+      const paymentData = await paymentResponse.json();
+      console.log('Payment response:', paymentData); // Debug
+      if (!paymentResponse.ok || !paymentData.success) {
+        throw new Error(paymentData.message || `Failed to create payment: HTTP ${paymentResponse.status}`);
       }
+
+      // Pass the original payment and new amount to update frontend state
+      onPaymentUpdated(payment, newAmountPaid);
+      onClose();
     } catch (error) {
-      setError(error.message || "Une erreur est survenue lors de la mise à jour du patient");
+      console.error('Error updating payment:', error);
+      setError(error.message || 'An error occurred while updating the payment.');
     } finally {
-      setIsSubmitting(false);
+      setLoading(false);
     }
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
-        {/* En-tête */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900 flex items-center">
-            <Edit className="w-5 h-5 mr-2 text-blue-600" />
-            Modifier un patient
-          </h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            <X className="w-5 h-5 text-gray-500" />
+      <div className="bg-white rounded-lg p-6 max-w-md w-full">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold text-gray-900">Edit Payment</h2>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+            <X className="w-6 h-6" />
           </button>
         </div>
-
-        {/* Informations actuelles du patient */}
-        <div className="p-6 bg-gray-50 border-b border-gray-200">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
-              <User className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h3 className="font-medium text-gray-900">Actuel : {patient.name}</h3>
-              <div className="flex items-center text-sm text-gray-600">
-                <Phone className="w-3 h-3 mr-1" />
-                {patient.phone}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Formulaire */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-              <p className="text-red-800 text-sm">{error}</p>
-            </div>
-          )}
-
-          {/* Prénom */}
+        {error && <div className="text-red-600 mb-4">{error}</div>}
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="first_name" className="block text-sm font-medium text-gray-700 mb-2">
-              Prénom <span className="text-red-500">*</span>
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Amount Paid (Before)</label>
             <input
               type="text"
-              id="first_name"
-              name="first_name"
-              value={formData.first_name}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Entrez le prénom"
+              value={`${amountPaidBefore} DA`}
+              readOnly
+              className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-100"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Amount Paid (Now)</label>
+            <input
+              type="number"
+              min="0.01"
+              step="0.01"
+              value={form.amountPaidNow}
+              onChange={(e) => handleInputChange('amountPaidNow', e.target.value)}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              placeholder="Enter new payment amount"
               required
             />
           </div>
-
-          {/* Nom */}
           <div>
-            <label htmlFor="last_name" className="block text-sm font-medium text-gray-700 mb-2">
-              Nom <span className="text-red-500">*</span>
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Total Price</label>
             <input
               type="text"
-              id="last_name"
-              name="last_name"
-              value={formData.last_name}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Entrez le nom"
-              required
+              value={`${totalPrice} DA`}
+              readOnly
+              className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-100"
             />
           </div>
-
-          {/* Téléphone */}
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-              Numéro de téléphone <span className="text-red-500">*</span>
-            </label>
-            <div className="relative">
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Entrez le numéro de téléphone"
-                required
-              />
-              <Phone className="absolute right-3 top-2.5 w-4 h-4 text-gray-400 pointer-events-none" />
-            </div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Remaining Balance After Payment</label>
+            <input
+              type="text"
+              value={`${form.amountPaidNow ? (parseFloat(payment.remaining_balance) - parseFloat(form.amountPaidNow || 0)).toFixed(2) : parseFloat(payment.remaining_balance).toFixed(2)} DA`}
+              readOnly
+              className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-100"
+            />
           </div>
-
-          {/* Boutons */}
-          <div className="flex space-x-3 pt-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Payment Date (Today)</label>
+            <input
+              type="text"
+              value={today}
+              readOnly
+              className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-100"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Payment Method</label>
+            <select
+              value={form.paymentMethod}
+              onChange={(e) => handleInputChange('paymentMethod', e.target.value)}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              required
+            >
+              <option value="cash">Cash</option>
+              <option value="check">Check</option>
+              <option value="card">Card</option>
+            </select>
+          </div>
+          <div className="flex justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
-              disabled={isSubmitting}
+              className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
             >
-              Annuler
+              Cancel
             </button>
             <button
               type="submit"
-              disabled={isSubmitting}
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+              disabled={loading}
+              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50"
             >
-              {isSubmitting ? (
-                <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>
-                  Mise à jour...
-                </>
-              ) : (
-                <>
-                  <Edit className="w-4 h-4 mr-2" />
-                  Terminer
-                </>
-              )}
+              {loading ? 'Saving...' : 'Save Payment'}
             </button>
           </div>
         </form>
@@ -470,4 +912,4 @@ const EditPatient = ({ patient, onClose, onPatientUpdated }) => {
   );
 };
 
-export default EditPatient;
+export default EditPayment;
