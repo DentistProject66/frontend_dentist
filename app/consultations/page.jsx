@@ -840,7 +840,7 @@ const ConsultationForm = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Solde restant </label>
                   <div className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-50 text-gray-700 font-medium">
-                    ${calculateRemainingBalance().toFixed(2)}
+                    DA{calculateRemainingBalance().toFixed(2)}
                   </div>
                 </div>
               </div>
