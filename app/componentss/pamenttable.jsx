@@ -155,7 +155,6 @@
 // export default PaymentsTable;
 
 
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { Search, Download } from 'lucide-react';
 import PaginationComponent from './PaginationComponent'; // Adjust the import path as needed
@@ -180,11 +179,39 @@ const PaymentsTable = ({ token }) => {
         });
         const data = await response.json();
         if (!data.success) throw new Error(data.message || 'Failed to fetch payments');
-        // Filter for payments with remaining_balance = "0.00"
-        const fullyPaid = data.data.payments.filter(
-          (payment) => payment.remaining_balance === '0.00'
+        
+        // Group payments by consultation_id and filter for fully paid consultations
+        const paymentsByConsultation = {};
+        data.data.payments.forEach(payment => {
+          const consultationId = payment.consultation_id;
+          if (!paymentsByConsultation[consultationId]) {
+            paymentsByConsultation[consultationId] = {
+              consultation_id: consultationId,
+              patient_name: payment.patient_name,
+              type_of_prosthesis: payment.type_of_prosthesis,
+              total_amount_paid: 0,
+              payments: [],
+              remaining_balance: parseFloat(payment.remaining_balance || 0),
+              latest_payment_date: payment.payment_date
+            };
+          }
+          
+          paymentsByConsultation[consultationId].total_amount_paid += parseFloat(payment.amount_paid || 0);
+          paymentsByConsultation[consultationId].payments.push(payment);
+          
+          // Update latest payment date and remaining balance
+          if (new Date(payment.payment_date) > new Date(paymentsByConsultation[consultationId].latest_payment_date)) {
+            paymentsByConsultation[consultationId].latest_payment_date = payment.payment_date;
+            paymentsByConsultation[consultationId].remaining_balance = parseFloat(payment.remaining_balance || 0);
+          }
+        });
+        
+        // Filter for fully paid consultations (remaining_balance = 0)
+        const fullyPaidConsultations = Object.values(paymentsByConsultation).filter(
+          consultation => consultation.remaining_balance === 0
         );
-        setPaymentsData(fullyPaid);
+        
+        setPaymentsData(fullyPaidConsultations);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -201,7 +228,7 @@ const PaymentsTable = ({ token }) => {
     return paymentsData.filter(
       (row) =>
         row.patient_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        row.payment_date.includes(searchTerm)
+        row.latest_payment_date.includes(searchTerm)
     );
   }, [searchTerm, paymentsData]);
 
@@ -217,14 +244,14 @@ const PaymentsTable = ({ token }) => {
 
   // Export to CSV
   const handleExport = () => {
-    const headers = ['Date', 'Patient', 'Amount Paid', 'Type of Prosthesis'];
+    const headers = ['Date', 'Patient', 'Total Amount Paid', 'Type of Prosthesis'];
     const csvContent = [
       headers.join(','),
       ...filteredData.map((row) =>
         [
-          row.payment_date,
+          row.latest_payment_date,
           row.patient_name,
-          parseFloat(row.amount_paid).toFixed(2),
+          row.total_amount_paid.toFixed(2),
           row.type_of_prosthesis,
         ].join(',')
       ),
@@ -285,9 +312,9 @@ const PaymentsTable = ({ token }) => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-200">
-                  <th className="text-left py-2 px-4 font-medium text-gray-700">Date</th>
+                  <th className="text-left py-2 px-4 font-medium text-gray-700">Last Payment Date</th>
                   <th className="text-left py-2 px-4 font-medium text-gray-700">Patient</th>
-                  <th className="text-left py-2 px-4 font-medium text-gray-700">Amount Paid</th>
+                  <th className="text-left py-2 px-4 font-medium text-gray-700">Total Amount Paid</th>
                   <th className="text-left py-2 px-4 font-medium text-gray-700">Type de prothèse</th>
                 </tr>
               </thead>
@@ -299,16 +326,16 @@ const PaymentsTable = ({ token }) => {
                     </td>
                   </tr>
                 ) : (
-                  paginatedData.map((payment, index) => (
-                    <tr key={index} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                  paginatedData.map((consultation, index) => (
+                    <tr key={consultation.consultation_id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                       <td className="py-2 px-4 text-sm text-gray-900">
-                        {new Date(payment.payment_date).toLocaleDateString()}
+                        {new Date(consultation.latest_payment_date).toLocaleDateString()}
                       </td>
-                      <td className="py-2 px-4 text-sm text-gray-900">{payment.patient_name}</td>
+                      <td className="py-2 px-4 text-sm text-gray-900">{consultation.patient_name}</td>
                       <td className="py-2 px-4 text-sm text-gray-900">
-                        {parseFloat(payment.amount_paid).toFixed(2)} DA
+                        {consultation.total_amount_paid.toFixed(2)} DA
                       </td>
-                      <td className="py-2 px-4 text-sm text-gray-900">{payment.type_of_prosthesis}</td>
+                      <td className="py-2 px-4 text-sm text-gray-900">{consultation.type_of_prosthesis}</td>
                     </tr>
                   ))
                 )}
@@ -322,7 +349,7 @@ const PaymentsTable = ({ token }) => {
               <div className="text-sm text-gray-600">
                 Showing {(currentPage - 1) * itemsPerPage + 1} to{' '}
                 {Math.min(currentPage * itemsPerPage, filteredData.length)} of{' '}
-                {filteredData.length} fully paid payments
+                {filteredData.length} fully paid consultations
               </div>
             )}
             {totalPages > 1 && (
