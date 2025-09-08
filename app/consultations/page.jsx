@@ -663,7 +663,7 @@ const ConsultationForm = () => {
       console.log("Response:", data);
 
       if (response.ok && data.success) {
-        showAlert(`Consultation ${action === "print" ? "saved and receipt generated" : "saved"} successfully!`, "success");
+        showAlert(`Consultation ${action === "print" ? "saved and receipt generated" : "enregistrée"} successfully!`, "avec succès");
 
         if (action === "print") {
           // You can implement receipt printing logic here

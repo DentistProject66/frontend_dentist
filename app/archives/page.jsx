@@ -1003,11 +1003,11 @@ const Archive = () => {
                 </div>
                 <div className="space-y-2 mb-4">
                   <div>
-                    <span className="text-sm font-medium text-gray-700">Archiver On:</span>
+                    <span className="text-sm font-medium text-gray-700">Archivé le ::</span>
                     <span className="text-sm text-gray-600 ml-1">{patient.archivedOn}</span>
                   </div>
                   <div>
-                    <span className="text-sm font-medium text-gray-700">Reason:</span>
+                    <span className="text-sm font-medium text-gray-700">Raison:</span>
                     <span className="text-sm text-gray-600 ml-1">{patient.reason}</span>
                   </div>
                 </div>
@@ -1020,8 +1020,7 @@ const Archive = () => {
                     }}
                     className="text-blue-600 text-sm hover:text-blue-800 font-medium"
                   >
-                    View Détails
-                  </button>
+Voir les détails                  </button>
                   <div className="flex space-x-2">
                     <button
                       onClick={() => {
@@ -1030,7 +1029,7 @@ const Archive = () => {
                       }}
                       className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700"
                     >
-                      Restorer
+                      Restaurer
                     </button>
                     <button
                       onClick={() => {
@@ -1039,8 +1038,7 @@ const Archive = () => {
                       }}
                       className="bg-red-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-red-700"
                     >
-                      Delete
-                    </button>
+Supprimer                    </button>
                   </div>
                 </div>
               </div>
@@ -1048,7 +1046,7 @@ const Archive = () => {
           </div>
           {filteredPatients.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-gray-500">No archived patients found.</p>
+              <p className="text-gray-500">Aucun patient archivé trouvé.</p>
             </div>
           )}
           <Pagination
@@ -1063,20 +1061,20 @@ const Archive = () => {
         <Modal
           isOpen={isRestoreModalOpen}
           onClose={() => setIsRestoreModalOpen(false)}
-          title="Restore Patient"
-          message={`Are you sure you want to restore ${restorePatient?.name}? They will be returned to the active patient list.`}
+          title="Restaurer le patient"
+          message={`Êtes-vous sûr de vouloir restaurer ${restorePatient?.name}? Il sera réintégré à la liste des patients actifs.`}
           onConfirm={handleRestorePatient}
-          confirmText="Restore"
-          cancelText="Cancel"
+          confirmText="Restaurer"
+          cancelText="Annuler"
         />
         <Modal
           isOpen={isDeleteModalOpen}
           onClose={() => setIsDeleteModalOpen(false)}
-          title="Delete Patient"
-          message={`Are you sure you want to permanently delete ${deletePatient?.name} and their related payments from the archives? This action cannot be undone.`}
+          title="Supprimer le Patient"
+          message={`Êtes-vous sûr de vouloir supprimer définitivement ${deletePatient?.name} et ses paiements associés des archives ? Cette action est irréversible.`}
           onConfirm={handleDeletePatient}
-          confirmText="Delete"
-          cancelText="Cancel"
+          confirmText="Supprimer"
+          cancelText="Annuler"
           isError={true}
         />
         <Modal
