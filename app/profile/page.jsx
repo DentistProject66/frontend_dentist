@@ -23,7 +23,7 @@
 //   useEffect(() => {
 //     const token = localStorage.getItem('authToken');
 //     if (token) {
-//       fetch('https://backenddentist-production-12fe.up.railway.app/api/auth/profile', {
+//       fetch('https://dental-backend-7opx.onrender.com/api/auth/profile', {
 //         headers: { Authorization: `Bearer ${token}` },
 //       })
 //         .then(response => response.json())
@@ -319,7 +319,7 @@ const AccountSettings = () => {
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) {
-      fetch('https://backenddentist-production-12fe.up.railway.app/api/auth/profile', {
+      fetch('https://dental-backend-7opx.onrender.com/api/auth/profile', {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(response => response.json())

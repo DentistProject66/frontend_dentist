@@ -14,7 +14,7 @@
 //     const fetchPayments = async () => {
 //       try {
 //         setLoading(true);
-//         const response = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments', {
+//         const response = await fetch('https://dental-backend-7opx.onrender.com/api/payments', {
 //           headers: { Authorization: `Bearer ${token}` },
 //         });
 //         const data = await response.json();
@@ -182,7 +182,7 @@
 //     const fetchPayments = async () => {
 //       try {
 //         setLoading(true);
-//         const response = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments', {
+//         const response = await fetch('https://dental-backend-7opx.onrender.com/api/payments', {
 //           headers: { Authorization: `Bearer ${token}` },
 //         });
 //         const data = await response.json();
@@ -377,7 +377,7 @@
 //   const fetchPayments = async () => {
 //     try {
 //       setLoading(true);
-//       const response = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments', {
+//       const response = await fetch('https://dental-backend-7opx.onrender.com/api/payments', {
 //         headers: { Authorization: `Bearer ${token}` },
 //       });
 //       const data = await response.json();
@@ -604,7 +604,7 @@ const InPaymentTable = ({ token }) => {
   const fetchPayments = async () => {
     try {
       setLoading(true);
-      const response = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments', {
+      const response = await fetch('https://dental-backend-7opx.onrender.com/api/payments', {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();

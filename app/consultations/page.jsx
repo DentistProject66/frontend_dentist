@@ -186,7 +186,7 @@
 
 //       console.log("Sending request:", requestBody);
 
-//       const response = await fetch("https://backenddentist-production-12fe.up.railway.app/api/consultations", {
+//       const response = await fetch("https://dental-backend-7opx.onrender.com/api/consultations", {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -651,7 +651,7 @@ const ConsultationForm = () => {
 
       console.log("Sending request:", requestBody);
 
-      const response = await fetch("https://backenddentist-production-12fe.up.railway.app/api/consultations", {
+      const response = await fetch("https://dental-backend-7opx.onrender.com/api/consultations", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

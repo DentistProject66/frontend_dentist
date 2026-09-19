@@ -46,7 +46,7 @@ const PaymentCurveChart = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `https://backenddentist-production-12fe.up.railway.app/api/payments/reports?date_from=${dateRange.from}&date_to=${dateRange.to}`,
+          `https://dental-backend-7opx.onrender.com/api/payments/reports?date_from=${dateRange.from}&date_to=${dateRange.to}`,
           {
             headers: { 
               'Authorization': `Bearer ${token}`,
