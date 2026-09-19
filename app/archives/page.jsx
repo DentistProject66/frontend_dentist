@@ -105,7 +105,7 @@
 
 //     // Call the archives restore endpoint
 //     const response = await fetch(
-//       `https://backenddentist-production-12fe.up.railway.app/api/archives/restore/${archive.id}`,
+//       `https://dental-backend-7opx.onrender.com/api/archives/restore/${archive.id}`,
 //       {
 //         method: "POST",
 //         headers: {
@@ -285,7 +285,7 @@
 //         return;
 //       }
 
-//       const url = new URL("https://backenddentist-production-12fe.up.railway.app/api/archives/");
+//       const url = new URL("https://dental-backend-7opx.onrender.com/api/archives/");
 //       url.searchParams.append("page", currentPage);
 //       url.searchParams.append("limit", patientsPerPage);
 //       if (searchTerm) url.searchParams.append("search", searchTerm);
@@ -594,7 +594,7 @@ const Archive = () => {
       console.log("Restoring archive with ID:", archive.id);
 
       const response = await fetch(
-        `https://backenddentist-production-12fe.up.railway.app/api/archives/restore/${archive.id}`,
+        `https://dental-backend-7opx.onrender.com/api/archives/restore/${archive.id}`,
         {
           method: "POST",
           headers: {
@@ -696,7 +696,7 @@ const Archive = () => {
       console.log("Deleting archive with ID:", archive.id);
 
       const response = await fetch(
-        `https://backenddentist-production-12fe.up.railway.app/api/archives/${archive.id}`,
+        `https://dental-backend-7opx.onrender.com/api/archives/${archive.id}`,
         {
           method: "DELETE",
           headers: {
@@ -874,7 +874,7 @@ const Archive = () => {
         return;
       }
 
-      const url = new URL("https://backenddentist-production-12fe.up.railway.app/api/archives/");
+      const url = new URL("https://dental-backend-7opx.onrender.com/api/archives/");
       url.searchParams.append("page", currentPage);
       url.searchParams.append("limit", patientsPerPage);
       if (searchTerm) url.searchParams.append("search", searchTerm);

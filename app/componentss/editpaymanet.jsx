@@ -28,7 +28,7 @@
 //       }
 
 //       const response = await fetch(
-//         `https://backenddentist-production-12fe.up.railway.app/api/payments/${payment.id}/patient/${patientId}`,
+//         `https://dental-backend-7opx.onrender.com/api/payments/${payment.id}/patient/${patientId}`,
 //         {
 //           method: 'PUT',
 //           headers: {
@@ -178,7 +178,7 @@
 
 //       // Fetch current consultation details to get existing amount_paid
 //       const consultResponse = await fetch(
-//         `https://backenddentist-production-12fe.up.railway.app/api/consultations/${payment.consultation_id}`,
+//         `https://dental-backend-7opx.onrender.com/api/consultations/${payment.consultation_id}`,
 //         {
 //           method: 'GET',
 //           headers: {
@@ -219,7 +219,7 @@
 
 //       // Send POST request to create new payment
 //       const paymentResponse = await fetch(
-//         'https://backenddentist-production-12fe.up.railway.app/api/payments',
+//         'https://dental-backend-7opx.onrender.com/api/payments',
 //         {
 //           method: 'POST',
 //           headers: {
@@ -242,7 +242,7 @@
 //       };
 
 //       const updateConsultResponse = await fetch(
-//         `https://backenddentist-production-12fe.up.railway.app/api/consultations/${payment.consultation_id}`,
+//         `https://dental-backend-7opx.onrender.com/api/consultations/${payment.consultation_id}`,
 //         {
 //           method: 'PUT',
 //           headers: {
@@ -405,7 +405,7 @@ const EditPayment = ({ payment, patientId, onClose, onPaymentUpdated }) => {
 
       // Récupération des détails de la consultation actuelle
       const consultResponse = await fetch(
-        `https://backenddentist-production-12fe.up.railway.app/api/consultations/${payment.consultation_id}`,
+        `https://dental-backend-7opx.onrender.com/api/consultations/${payment.consultation_id}`,
         {
           method: 'GET',
           headers: {
@@ -446,7 +446,7 @@ const EditPayment = ({ payment, patientId, onClose, onPaymentUpdated }) => {
 
       // Requête POST pour créer le paiement
       const paymentResponse = await fetch(
-        'https://backenddentist-production-12fe.up.railway.app/api/payments',
+        'https://dental-backend-7opx.onrender.com/api/payments',
         {
           method: 'POST',
           headers: {
@@ -469,7 +469,7 @@ const EditPayment = ({ payment, patientId, onClose, onPaymentUpdated }) => {
       };
 
       const updateConsultResponse = await fetch(
-        `https://backenddentist-production-12fe.up.railway.app/api/consultations/${payment.consultation_id}`,
+        `https://dental-backend-7opx.onrender.com/api/consultations/${payment.consultation_id}`,
         {
           method: 'PUT',
           headers: {

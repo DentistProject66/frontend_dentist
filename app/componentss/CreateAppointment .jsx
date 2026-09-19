@@ -46,7 +46,7 @@
 
 //       try {
 //         const response = await fetch(
-//           `https://backenddentist-production-12fe.up.railway.app/api/patients/${patient.id}`,
+//           `https://dental-backend-7opx.onrender.com/api/patients/${patient.id}`,
 //           {
 //             headers: { Authorization: `Bearer ${token}` },
 //           }
@@ -143,7 +143,7 @@
 
 //       console.log("Creating appointment with data:", appointmentData);
 
-//       const response = await fetch("https://backenddentist-production-12fe.up.railway.app/api/appointments", {
+//       const response = await fetch("https://dental-backend-7opx.onrender.com/api/appointments", {
 //         method: "POST",
 //         headers: {
 //           "Authorization": `Bearer ${token}`,
@@ -404,7 +404,7 @@ const CreateAppointment = ({ patient, onClose, onAppointmentCreated }) => {
 
       try {
         const response = await fetch(
-          `https://backenddentist-production-12fe.up.railway.app/api/patients/${patient.id}`,
+          `https://dental-backend-7opx.onrender.com/api/patients/${patient.id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -499,7 +499,7 @@ const CreateAppointment = ({ patient, onClose, onAppointmentCreated }) => {
 
       console.log("Création du rendez-vous avec :", appointmentData);
 
-      const response = await fetch("https://backenddentist-production-12fe.up.railway.app/api/appointments", {
+      const response = await fetch("https://dental-backend-7opx.onrender.com/api/appointments", {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,

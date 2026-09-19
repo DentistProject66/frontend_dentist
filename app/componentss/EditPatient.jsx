@@ -70,7 +70,7 @@
 
 //       console.log("Updating patient with data:", updateData);
 
-//       const response = await fetch(`https://backenddentist-production-12fe.up.railway.app/api/patients/${patient.id}`, {
+//       const response = await fetch(`https://dental-backend-7opx.onrender.com/api/patients/${patient.id}`, {
 //         method: "PUT",
 //         headers: {
 //           "Authorization": `Bearer ${token}`,
@@ -308,7 +308,7 @@ const EditPatient = ({ patient, onClose, onPatientUpdated }) => {
       };
 
       const response = await fetch(
-        `https://backenddentist-production-12fe.up.railway.app/api/patients/${patient.id}`,
+        `https://dental-backend-7opx.onrender.com/api/patients/${patient.id}`,
         {
           method: "PUT",
           headers: {
@@ -535,7 +535,7 @@ export default EditPatient;
 //       // Fetch consultation to validate remaining_balance
 //       console.log('Fetching consultation:', payment.consultation_id); // Debug
 //       const consultResponse = await fetch(
-//         `https://backenddentist-production-12fe.up.railway.app/api/consultations/${payment.consultation_id}`,
+//         `https://dental-backend-7opx.onrender.com/api/consultations/${payment.consultation_id}`,
 //         {
 //           method: 'GET',
 //           headers: {
@@ -570,7 +570,7 @@ export default EditPatient;
 
 //       console.log('Creating payment:', newPayment); // Debug
 //       const paymentResponse = await fetch(
-//         'https://backenddentist-production-12fe.up.railway.app/api/payments',
+//         'https://dental-backend-7opx.onrender.com/api/payments',
 //         {
 //           method: 'POST',
 //           headers: {

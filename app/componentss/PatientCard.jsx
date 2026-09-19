@@ -90,7 +90,7 @@
 
 //     try {
 //       const response = await fetch(
-//         `https://backenddentist-production-12fe.up.railway.app/api/patients/archive/${patient.id}`,
+//         `https://dental-backend-7opx.onrender.com/api/patients/archive/${patient.id}`,
 //         {
 //           method: "POST",
 //           headers: {
@@ -183,7 +183,7 @@
 
 //         try {
 //           const patientResponse = await fetch(
-//             `https://backenddentist-production-12fe.up.railway.app/api/patients/${patient.id}`,
+//             `https://dental-backend-7opx.onrender.com/api/patients/${patient.id}`,
 //             {
 //               headers: { Authorization: `Bearer ${token}` },
 //             }
@@ -507,7 +507,7 @@
 
 //     try {
 //       const response = await fetch(
-//         `https://backenddentist-production-12fe.up.railway.app/api/patients/archive/${patient.id}`,
+//         `https://dental-backend-7opx.onrender.com/api/patients/archive/${patient.id}`,
 //         {
 //           method: "POST",
 //           headers: {
@@ -600,7 +600,7 @@
 
 //         try {
 //           const patientResponse = await fetch(
-//             `https://backenddentist-production-12fe.up.railway.app/api/patients/${patient.id}`,
+//             `https://dental-backend-7opx.onrender.com/api/patients/${patient.id}`,
 //             {
 //               headers: { Authorization: `Bearer ${token}` },
 //             }
@@ -939,7 +939,7 @@ const PatientCard = ({ patient, index, onPatientUpdate }) => {
 
     try {
       const response = await fetch(
-        `https://backenddentist-production-12fe.up.railway.app/api/patients/archive/${patient.id}`,
+        `https://dental-backend-7opx.onrender.com/api/patients/archive/${patient.id}`,
         {
           method: "POST",
           headers: {
@@ -1025,7 +1025,7 @@ const PatientCard = ({ patient, index, onPatientUpdate }) => {
 
         try {
           const patientResponse = await fetch(
-            `https://backenddentist-production-12fe.up.railway.app/api/patients/${patient.id}`,
+            `https://dental-backend-7opx.onrender.com/api/patients/${patient.id}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }

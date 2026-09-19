@@ -33,19 +33,19 @@
 //     const fetchSummaryData = async () => {
 //       try {
 //         setLoading(true);
-//         const todayRes = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments/reports?period=today', {
+//         const todayRes = await fetch('https://dental-backend-7opx.onrender.com/api/payments/reports?period=today', {
 //           headers: { Authorization: `Bearer ${token}` },
 //         });
 //         const todayData = await todayRes.json();
 //         if (!todayData.success) throw new Error(todayData.message);
 
-//         const weekRes = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments/reports?period=week', {
+//         const weekRes = await fetch('https://dental-backend-7opx.onrender.com/api/payments/reports?period=week', {
 //           headers: { Authorization: `Bearer ${token}` },
 //         });
 //         const weekData = await weekRes.json();
 //         if (!weekData.success) throw new Error(weekData.message);
 
-//         const monthRes = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments/reports?period=month', {
+//         const monthRes = await fetch('https://dental-backend-7opx.onrender.com/api/payments/reports?period=month', {
 //           headers: { Authorization: `Bearer ${token}` },
 //         });
 //         const monthData = await monthRes.json();
@@ -188,7 +188,7 @@ const Page = () => {
   // Function to calculate unpaid total from payments data
   const calculateUnpaidTotal = async (token) => {
     try {
-      const response = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments', {
+      const response = await fetch('https://dental-backend-7opx.onrender.com/api/payments', {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
@@ -233,21 +233,21 @@ const Page = () => {
         setLoading(true);
         
         // Fetch today's revenue
-        const todayRes = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments/reports?period=today', {
+        const todayRes = await fetch('https://dental-backend-7opx.onrender.com/api/payments/reports?period=today', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const todayData = await todayRes.json();
         if (!todayData.success) throw new Error(todayData.message);
 
         // Fetch week's revenue
-        const weekRes = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments/reports?period=week', {
+        const weekRes = await fetch('https://dental-backend-7opx.onrender.com/api/payments/reports?period=week', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const weekData = await weekRes.json();
         if (!weekData.success) throw new Error(weekData.message);
 
         // Fetch month's revenue
-        const monthRes = await fetch('https://backenddentist-production-12fe.up.railway.app/api/payments/reports?period=month', {
+        const monthRes = await fetch('https://dental-backend-7opx.onrender.com/api/payments/reports?period=month', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const monthData = await monthRes.json();
